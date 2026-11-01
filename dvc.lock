@@ -1,0 +1,135 @@
+schema: '2.0'
+stages:
+  download:
+    cmd: python -m src.download
+    deps:
+    - path: src/download.py
+      hash: md5
+      md5: 973ad3313bb2d9a91f98872c49ffc05a
+      size: 1393
+    params:
+      params.yaml:
+        data:
+          url: https://archive.ics.uci.edu/static/public/222/bank+marketing.zip
+          file: bank-additional/bank-additional-full.csv
+    outs:
+    - path: data/raw/bank-additional-full.csv
+      hash: md5
+      md5: f6cb2c1256ffe2836b36df321f46e92c
+      size: 5834924
+  prepare:
+    cmd: python -m src.prepare
+    deps:
+    - path: data/raw/bank-additional-full.csv
+      hash: md5
+      md5: f6cb2c1256ffe2836b36df321f46e92c
+      size: 5834924
+    - path: src/prepare.py
+      hash: md5
+      md5: 6fa1420a775ab2769f9cb0b0cba43865
+      size: 3263
+    params:
+      params.yaml:
+        prepare:
+          drop_columns:
+          - duration
+    outs:
+    - path: data/prepared/bank.csv
+      hash: md5
+      md5: 22cf85ae7a1cee8a6525bbef540a4486
+      size: 4547735
+  split:
+    cmd: python -m src.split
+    deps:
+    - path: data/prepared/bank.csv
+      hash: md5
+      md5: 22cf85ae7a1cee8a6525bbef540a4486
+      size: 4547735
+    - path: src/split.py
+      hash: md5
+      md5: 7bdf91a86eb2dd91ce3e891f1a839f62
+      size: 779
+    params:
+      params.yaml:
+        split:
+          test_size: 0.2
+          seed: 42
+    outs:
+    - path: data/split/test.csv
+      hash: md5
+      md5: 58c2ac55c5649463752f8ea1648b02ec
+      size: 908981
+    - path: data/split/train.csv
+      hash: md5
+      md5: 84db4fd9826fa0ceff30e14542c0db7e
+      size: 3638947
+  train:
+    cmd: python -m src.train
+    deps:
+    - path: data/split/train.csv
+      hash: md5
+      md5: 84db4fd9826fa0ceff30e14542c0db7e
+      size: 3638947
+    - path: src/features.py
+      hash: md5
+      md5: c9506a7f5832468d1541cdb73a11b119
+      size: 1640
+    - path: src/train.py
+      hash: md5
+      md5: fc5a063ece7b80fde3b2e76f33ec33a9
+      size: 2503
+    params:
+      params.yaml:
+        train:
+          model: logreg
+          seed: 42
+          cv_folds: 5
+          logreg:
+            C: 1.0
+            class_weight: balanced
+          random_forest:
+            n_estimators: 300
+            max_depth: 10
+            min_samples_leaf: 5
+            class_weight: balanced
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: ea886a6e7531d22bc643a37405a16c1e
+      size: 6769
+    - path: models/run.json
+      hash: md5
+      md5: cdbf8106853ee6134dbff059594038b7
+      size: 71
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+    - path: data/split/test.csv
+      hash: md5
+      md5: 58c2ac55c5649463752f8ea1648b02ec
+      size: 908981
+    - path: models/model.joblib
+      hash: md5
+      md5: ea886a6e7531d22bc643a37405a16c1e
+      size: 6769
+    - path: src/evaluate.py
+      hash: md5
+      md5: d8a0b054c18634d30e78ba37f70bdbf0
+      size: 2502
+    params:
+      params.yaml:
+        evaluate:
+          threshold: 0.5
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: a190d1ae77b8b0fe0ad319a0907b994d
+      size: 137
+    - path: reports/pr.csv
+      hash: md5
+      md5: 4cb32dae872045daf8dce157cb340f19
+      size: 7570
+    - path: reports/roc.csv
+      hash: md5
+      md5: cfc4389b6a5add869a82e0aee6110353
+      size: 7889

@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+.tmp/
+# MLflow tracking data stays local (runs are reproducible with dvc repro)
+mlflow.db
+mlruns/
+mlartifacts/

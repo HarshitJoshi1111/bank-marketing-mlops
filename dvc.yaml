@@ -1,0 +1,64 @@
+stages:
+  download:
+    cmd: python -m src.download
+    deps:
+      - src/download.py
+    params:
+      - data
+    outs:
+      - data/raw/bank-additional-full.csv
+
+  prepare:
+    cmd: python -m src.prepare
+    deps:
+      - src/prepare.py
+      - data/raw/bank-additional-full.csv
+    params:
+      - prepare
+    outs:
+      - data/prepared/bank.csv
+
+  split:
+    cmd: python -m src.split
+    deps:
+      - src/split.py
+      - data/prepared/bank.csv
+    params:
+      - split
+    outs:
+      - data/split/train.csv
+      - data/split/test.csv
+
+  train:
+    cmd: python -m src.train
+    deps:
+      - src/train.py
+      - src/features.py
+      - data/split/train.csv
+    params:
+      - train
+    outs:
+      - models/model.joblib
+      - models/run.json:
+          cache: false
+
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+      - src/evaluate.py
+      - models/model.joblib
+      - data/split/test.csv
+    params:
+      - evaluate
+    metrics:
+      - reports/metrics.json:
+          cache: false
+    plots:
+      - reports/roc.csv:
+          x: fpr
+          y: tpr
+          cache: false
+      - reports/pr.csv:
+          x: recall
+          y: precision
+          cache: false

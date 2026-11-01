@@ -1,0 +1,33 @@
+data:
+  url: https://archive.ics.uci.edu/static/public/222/bank+marketing.zip
+  # file inside the nested bank-additional.zip; 41,188 calls, May 2008 - Nov 2010
+  file: bank-additional/bank-additional-full.csv
+
+prepare:
+  # "duration" (call length) is only known after the call and decides the outcome almost by itself.
+  # The dataset description says to drop it for a realistic prediction model.
+  drop_columns: [duration]
+
+split:
+  test_size: 0.2
+  seed: 42
+
+train:
+  model: logreg            # dummy | logreg | random_forest
+  seed: 42
+  cv_folds: 5
+  logreg:
+    C: 1.0
+    class_weight: balanced
+  random_forest:
+    n_estimators: 300
+    max_depth: 10
+    min_samples_leaf: 5
+    class_weight: balanced
+
+evaluate:
+  threshold: 0.5
+
+mlflow:
+  tracking_uri: sqlite:///mlflow.db
+  experiment: bank-marketing
