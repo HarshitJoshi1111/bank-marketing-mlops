@@ -1,0 +1,6 @@
+{
+  "cv_roc_auc": 0.8014,
+  "cv_average_precision": 0.4703,
+  "cv_roc_auc_std": 0.0117,
+  "cv_average_precision_std": 0.0212
+}

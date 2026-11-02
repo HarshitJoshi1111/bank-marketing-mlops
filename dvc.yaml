@@ -41,6 +41,9 @@ stages:
       - models/model.joblib
       - models/run.json:
           cache: false
+    metrics:
+      - reports/cv_metrics.json:
+          cache: false
 
   evaluate:
     cmd: python -m src.evaluate

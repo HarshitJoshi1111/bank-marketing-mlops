@@ -13,7 +13,7 @@ split:
   seed: 42
 
 train:
-  model: logreg            # dummy | logreg | random_forest
+  model: hist_gb           # dummy | logreg | random_forest | hist_gb (chosen in reports/tuning.md)
   seed: 42
   cv_folds: 5
   logreg:
@@ -24,6 +24,37 @@ train:
     max_depth: 10
     min_samples_leaf: 5
     class_weight: balanced
+  hist_gb:
+    learning_rate: 0.1
+    max_iter: 100
+    max_leaf_nodes: 7
+    min_samples_leaf: 20
+    l2_regularization: 0.0
+    class_weight: null
+
+# Model comparison and hyperparameter search (python -m src.tune, not part of the DVC pipeline).
+# Selection metric: average precision, because only ~12 % of the calls are positive.
+tune:
+  models: [logreg, random_forest, hist_gb]
+  n_iter: 20
+  scoring: average_precision
+  spaces:
+    logreg:
+      C: [0.003, 0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0]
+      class_weight: [null, balanced]
+    random_forest:
+      n_estimators: [200, 400]
+      max_depth: [6, 8, 10, 14, null]
+      min_samples_leaf: [1, 5, 10, 20, 50]
+      max_features: [sqrt, 0.3, 0.5]
+      class_weight: [null, balanced, balanced_subsample]
+    hist_gb:
+      learning_rate: [0.02, 0.05, 0.1]
+      max_iter: [100, 200, 400]
+      max_leaf_nodes: [7, 15, 31, 63]
+      min_samples_leaf: [20, 50, 100, 200]
+      l2_regularization: [0.0, 0.1, 1.0]
+      class_weight: [null, balanced]
 
 evaluate:
   threshold: 0.5

@@ -72,16 +72,16 @@ stages:
       size: 3638947
     - path: src/features.py
       hash: md5
-      md5: c9506a7f5832468d1541cdb73a11b119
-      size: 1640
+      md5: 94f7e9925a572f864ec20fae4929098c
+      size: 2618
     - path: src/train.py
       hash: md5
-      md5: fc5a063ece7b80fde3b2e76f33ec33a9
-      size: 2503
+      md5: db8248790488c1fa26586888dbe5cd0a
+      size: 2720
     params:
       params.yaml:
         train:
-          model: logreg
+          model: hist_gb
           seed: 42
           cv_folds: 5
           logreg:
@@ -92,15 +92,26 @@ stages:
             max_depth: 10
             min_samples_leaf: 5
             class_weight: balanced
+          hist_gb:
+            learning_rate: 0.1
+            max_iter: 100
+            max_leaf_nodes: 7
+            min_samples_leaf: 20
+            l2_regularization: 0.0
+            class_weight:
     outs:
     - path: models/model.joblib
       hash: md5
-      md5: ea886a6e7531d22bc643a37405a16c1e
-      size: 6769
+      md5: 135598a0fce5f6cdbd6c5a0217005065
+      size: 103921
     - path: models/run.json
       hash: md5
-      md5: cdbf8106853ee6134dbff059594038b7
-      size: 71
+      md5: 9d6f4a8cfea64f3232bd51d57ff44b68
+      size: 72
+    - path: reports/cv_metrics.json
+      hash: md5
+      md5: fe8a3a2a55ea82161cafd810c794d7e4
+      size: 126
   evaluate:
     cmd: python -m src.evaluate
     deps:
@@ -110,8 +121,8 @@ stages:
       size: 908981
     - path: models/model.joblib
       hash: md5
-      md5: ea886a6e7531d22bc643a37405a16c1e
-      size: 6769
+      md5: 135598a0fce5f6cdbd6c5a0217005065
+      size: 103921
     - path: src/evaluate.py
       hash: md5
       md5: d8a0b054c18634d30e78ba37f70bdbf0
@@ -123,13 +134,13 @@ stages:
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: a190d1ae77b8b0fe0ad319a0907b994d
-      size: 137
+      md5: 8a2a69b9d7e6c495abbfce18881f56a8
+      size: 140
     - path: reports/pr.csv
       hash: md5
-      md5: 4cb32dae872045daf8dce157cb340f19
-      size: 7570
+      md5: 5868b67ee021b5ae0911bf88f6fc9119
+      size: 7609
     - path: reports/roc.csv
       hash: md5
-      md5: cfc4389b6a5add869a82e0aee6110353
-      size: 7889
+      md5: 1971271ce175cf7ad7e406ff5574fdf5
+      size: 7701

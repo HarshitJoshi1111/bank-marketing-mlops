@@ -5,7 +5,7 @@ import pytest
 from src.evaluate import metrics
 from src.features import make_pipeline, split_xy
 
-PARAMS = {"model": "logreg", "seed": 0, "logreg": {"C": 1.0, "class_weight": "balanced"},
+PARAMS = {"model": "logreg", "seed": 0, "logreg": {"C": 1.0, "class_weight": "balanced"}, "hist_gb": {"max_iter": 20},
           "random_forest": {"n_estimators": 10, "max_depth": 3, "min_samples_leaf": 1, "class_weight": "balanced"}}
 
 
@@ -22,7 +22,7 @@ def test_split_xy_turns_integers_into_floats():
     assert X["campaign"].dtype == "float64"
 
 
-@pytest.mark.parametrize("model", ["dummy", "logreg", "random_forest"])
+@pytest.mark.parametrize("model", ["dummy", "logreg", "random_forest", "hist_gb"])
 def test_pipeline_trains_and_handles_unseen_category(model):
     X, y = split_xy(toy_data())
     pipeline = make_pipeline(X, {**PARAMS, "model": model}).fit(X, y)
