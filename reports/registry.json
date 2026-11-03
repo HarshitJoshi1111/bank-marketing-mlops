@@ -1,0 +1,8 @@
+{
+  "decision": "champion",
+  "test_average_precision": 0.4953,
+  "gate": 0.4,
+  "previous_champion": null,
+  "model": "hist_gb",
+  "version": 1
+}

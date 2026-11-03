@@ -2,5 +2,9 @@
   "cv_roc_auc": 0.8014,
   "cv_average_precision": 0.4703,
   "cv_roc_auc_std": 0.0117,
-  "cv_average_precision_std": 0.0212
+  "cv_average_precision_std": 0.0212,
+  "threshold": 0.2359,
+  "cv_precision": 0.4609,
+  "cv_recall": 0.5511,
+  "cv_f1": 0.502
 }

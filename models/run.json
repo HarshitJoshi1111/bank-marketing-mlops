@@ -1,4 +1,6 @@
 {
-  "run_id": "139c3904db8f4f2599216e14b678fb66",
-  "model": "hist_gb"
+  "run_id": "d6e6f0245cee4d4d8dd3088430041f87",
+  "model": "hist_gb",
+  "model_uri": "models:/m-dd83eb6a53b4459880f4eb1d5555b632",
+  "threshold": 0.2359
 }

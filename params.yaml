@@ -31,6 +31,11 @@ train:
     min_samples_leaf: 20
     l2_regularization: 0.0
     class_weight: null
+  # Decision threshold, chosen on the out-of-fold predictions of the training set (src/threshold.py)
+  threshold:
+    method: max_f1       # max_f1 | min_recall | fixed
+    min_recall: 0.6      # used by min_recall
+    value: 0.5           # used by fixed
 
 # Model comparison and hyperparameter search (python -m src.tune, not part of the DVC pipeline).
 # Selection metric: average precision, because only ~12 % of the calls are positive.
@@ -56,8 +61,11 @@ tune:
       l2_regularization: [0.0, 0.1, 1.0]
       class_weight: [null, balanced]
 
-evaluate:
-  threshold: 0.5
+register:
+  model_name: bank-marketing-classifier
+  alias: champion
+  # quality gate on the test set; a model that always says "no" scores 0.117
+  min_average_precision: 0.40
 
 mlflow:
   tracking_uri: sqlite:///mlflow.db

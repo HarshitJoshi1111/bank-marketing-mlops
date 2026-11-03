@@ -1,8 +1,9 @@
 {
+  "threshold": 0.2359,
   "roc_auc": 0.8001,
   "average_precision": 0.4953,
-  "precision": 0.7131,
-  "recall": 0.2783,
-  "f1": 0.4003,
+  "precision": 0.4733,
+  "recall": 0.5598,
+  "f1": 0.5129,
   "positive_rate": 0.1167
 }

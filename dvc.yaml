@@ -34,6 +34,7 @@ stages:
     deps:
       - src/train.py
       - src/features.py
+      - src/threshold.py
       - data/split/train.csv
     params:
       - train
@@ -50,9 +51,8 @@ stages:
     deps:
       - src/evaluate.py
       - models/model.joblib
+      - models/run.json
       - data/split/test.csv
-    params:
-      - evaluate
     metrics:
       - reports/metrics.json:
           cache: false
@@ -64,4 +64,16 @@ stages:
       - reports/pr.csv:
           x: recall
           y: precision
+          cache: false
+
+  register:
+    cmd: python -m src.register
+    deps:
+      - src/register.py
+      - models/run.json
+      - reports/metrics.json
+    params:
+      - register
+    outs:
+      - reports/registry.json:
           cache: false
