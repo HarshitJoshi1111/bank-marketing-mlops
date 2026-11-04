@@ -77,3 +77,13 @@ stages:
     outs:
       - reports/registry.json:
           cache: false
+
+  export:
+    cmd: python -m src.export
+    deps:
+      - src/export.py
+      - reports/registry.json
+    params:
+      - register
+    outs:
+      - models/serving

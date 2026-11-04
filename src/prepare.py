@@ -55,10 +55,16 @@ def validate(df: pd.DataFrame) -> None:
         raise ValueError("data validation failed:\n  " + "\n  ".join(problems))
 
 
-def prepare(df: pd.DataFrame, drop_columns: list[str]) -> pd.DataFrame:
-    df = df.drop(columns=drop_columns).drop_duplicates()
+def add_features(df: pd.DataFrame) -> pd.DataFrame:
+    """Feature engineering shared by training and the API, so both see exactly the same inputs."""
+    df = df.copy()
     df["previously_contacted"] = (df["pdays"] != NOT_CONTACTED).astype(int)
     df["pdays"] = df["pdays"].where(df["pdays"] != NOT_CONTACTED, -1)
+    return df
+
+
+def prepare(df: pd.DataFrame, drop_columns: list[str]) -> pd.DataFrame:
+    df = add_features(df.drop(columns=drop_columns).drop_duplicates())
     df["y"] = (df["y"] == "yes").astype(int)
     return df.reset_index(drop=True)
 

@@ -26,8 +26,8 @@ stages:
       size: 5834924
     - path: src/prepare.py
       hash: md5
-      md5: 6fa1420a775ab2769f9cb0b0cba43865
-      size: 3263
+      md5: 4b22315345c09031c5358c1575cb6ce4
+      size: 3463
     params:
       params.yaml:
         prepare:
@@ -178,3 +178,26 @@ stages:
       hash: md5
       md5: e1acc92a7c644f91b01eb961bd048835
       size: 146
+  export:
+    cmd: python -m src.export
+    deps:
+    - path: reports/registry.json
+      hash: md5
+      md5: e1acc92a7c644f91b01eb961bd048835
+      size: 146
+    - path: src/export.py
+      hash: md5
+      md5: 2d39b8bc3c0edf9d480bc8bcbf4acec7
+      size: 1789
+    params:
+      params.yaml:
+        register:
+          model_name: bank-marketing-classifier
+          alias: champion
+          min_average_precision: 0.4
+    outs:
+    - path: models/serving
+      hash: md5
+      md5: fdce1006261859ba3aaf76f208fa4ece.dir
+      size: 137408
+      nfiles: 2

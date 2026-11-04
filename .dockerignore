@@ -1,0 +1,9 @@
+# Only what the API needs goes into the build context
+*
+!requirements-serve.txt
+!src/__init__.py
+!src/params.py
+!src/prepare.py
+!serve/
+!models/serving/
+**/__pycache__
