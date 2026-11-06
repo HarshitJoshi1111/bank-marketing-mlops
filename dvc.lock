@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/download.py
       hash: md5
-      md5: 973ad3313bb2d9a91f98872c49ffc05a
-      size: 1393
+      md5: 72cec18122fc0e83a526fd1590774b42
+      size: 1368
     params:
       params.yaml:
         data:
@@ -137,8 +137,8 @@ stages:
       size: 156
     - path: src/evaluate.py
       hash: md5
-      md5: 83618c5b8593ba218c0fcdd7f73624a2
-      size: 2556
+      md5: f4e896f823f34dd9ba88926bb9295687
+      size: 2558
     outs:
     - path: reports/metrics.json
       hash: md5
@@ -201,3 +201,42 @@ stages:
       md5: fdce1006261859ba3aaf76f208fa4ece.dir
       size: 137408
       nfiles: 2
+  monitor:
+    cmd: python -m src.monitor
+    deps:
+    - path: data/prepared/bank.csv
+      hash: md5
+      md5: 22cf85ae7a1cee8a6525bbef540a4486
+      size: 4547735
+    - path: data/split/train.csv
+      hash: md5
+      md5: 84db4fd9826fa0ceff30e14542c0db7e
+      size: 3638947
+    - path: models/serving
+      hash: md5
+      md5: fdce1006261859ba3aaf76f208fa4ece.dir
+      size: 137408
+      nfiles: 2
+    - path: src/monitor.py
+      hash: md5
+      md5: cebd3890f7e05dd69d00046526d5f4e0
+      size: 6522
+    params:
+      params.yaml:
+        monitor:
+          window: 4000
+          bins: 10
+          psi_moderate: 0.1
+          psi_drift: 0.25
+          ignore_for_decision:
+          - month
+          - day_of_week
+    outs:
+    - path: reports/drift.json
+      hash: md5
+      md5: 76771f52fde2826a4fa611aa09fdb7bd
+      size: 2799
+    - path: reports/drift.md
+      hash: md5
+      md5: f61725f325e1b12ba8fe8ac051ba31ff
+      size: 1353

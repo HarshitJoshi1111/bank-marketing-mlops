@@ -1,0 +1,139 @@
+{
+  "reference_rows": 31523,
+  "current_rows": 4000,
+  "model_version": 1,
+  "decision": "retrain",
+  "drifted_features": 12,
+  "scores": {
+    "psi": 6.6848,
+    "threshold": 0.2359,
+    "reference_actual_rate": 0.1167,
+    "current_actual_rate": 0.4642,
+    "reference_predicted_rate": 0.1382,
+    "current_predicted_rate": 0.9058,
+    "reference_mean_score": 0.1164,
+    "current_mean_score": 0.4611
+  },
+  "features": [
+    {
+      "feature": "nr.employed",
+      "psi": 8.9588,
+      "status": "drift",
+      "reference_mean": 5166.028,
+      "current_mean": 5013.453
+    },
+    {
+      "feature": "euribor3m",
+      "psi": 7.6142,
+      "status": "drift",
+      "reference_mean": 3.601,
+      "current_mean": 0.799
+    },
+    {
+      "feature": "emp.var.rate",
+      "psi": 7.1403,
+      "status": "drift",
+      "reference_mean": 0.063,
+      "current_mean": -2.341
+    },
+    {
+      "feature": "cons.conf.idx",
+      "psi": 5.2273,
+      "status": "drift",
+      "reference_mean": -40.504,
+      "current_mean": -35.149
+    },
+    {
+      "feature": "cons.price.idx",
+      "psi": 3.9282,
+      "status": "drift",
+      "reference_mean": 93.577,
+      "current_mean": 93.255
+    },
+    {
+      "feature": "month",
+      "psi": 1.4945,
+      "status": "drift"
+    },
+    {
+      "feature": "poutcome",
+      "psi": 0.8135,
+      "status": "drift"
+    },
+    {
+      "feature": "previous",
+      "psi": 0.7209,
+      "status": "drift",
+      "reference_mean": 0.177,
+      "current_mean": 0.843
+    },
+    {
+      "feature": "job",
+      "psi": 0.5335,
+      "status": "drift"
+    },
+    {
+      "feature": "default",
+      "psi": 0.4463,
+      "status": "drift"
+    },
+    {
+      "feature": "age",
+      "psi": 0.2901,
+      "status": "drift",
+      "reference_mean": 40.18,
+      "current_mean": 43.417
+    },
+    {
+      "feature": "contact",
+      "psi": 0.2657,
+      "status": "drift"
+    },
+    {
+      "feature": "education",
+      "psi": 0.1518,
+      "status": "moderate"
+    },
+    {
+      "feature": "campaign",
+      "psi": 0.1283,
+      "status": "moderate",
+      "reference_mean": 2.622,
+      "current_mean": 1.84
+    },
+    {
+      "feature": "marital",
+      "psi": 0.0341,
+      "status": "stable"
+    },
+    {
+      "feature": "housing",
+      "psi": 0.0023,
+      "status": "stable"
+    },
+    {
+      "feature": "loan",
+      "psi": 0.0019,
+      "status": "stable"
+    },
+    {
+      "feature": "day_of_week",
+      "psi": 0.0017,
+      "status": "stable"
+    },
+    {
+      "feature": "pdays",
+      "psi": 0.0,
+      "status": "stable",
+      "reference_mean": -0.732,
+      "current_mean": 1.068
+    },
+    {
+      "feature": "previously_contacted",
+      "psi": 0.0,
+      "status": "stable",
+      "reference_mean": 0.038,
+      "current_mean": 0.288
+    }
+  ]
+}

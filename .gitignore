@@ -8,3 +8,4 @@ __pycache__/
 mlflow.db
 mlruns/
 mlartifacts/
+.ruff_cache/

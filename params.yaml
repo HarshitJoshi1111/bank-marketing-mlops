@@ -67,6 +67,14 @@ register:
   # quality gate on the test set; a model that always says "no" scores 0.117
   min_average_precision: 0.40
 
+monitor:
+  window: 4000          # most recent calls compared with the training set
+  bins: 10
+  psi_moderate: 0.1
+  psi_drift: 0.25
+  # calendar features always differ between periods; they are reported but do not trigger a retrain
+  ignore_for_decision: [month, day_of_week]
+
 mlflow:
   tracking_uri: sqlite:///mlflow.db
   experiment: bank-marketing

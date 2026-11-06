@@ -87,3 +87,19 @@ stages:
       - register
     outs:
       - models/serving
+
+  monitor:
+    cmd: python -m src.monitor
+    deps:
+      - src/monitor.py
+      - data/split/train.csv
+      - data/prepared/bank.csv
+      - models/serving
+    params:
+      - monitor
+    metrics:
+      - reports/drift.json:
+          cache: false
+    outs:
+      - reports/drift.md:
+          cache: false

@@ -5,7 +5,6 @@ The UCI archive contains two more zip files; the "additional" version has 41,188
 """
 import io
 import zipfile
-from pathlib import Path
 
 import requests
 

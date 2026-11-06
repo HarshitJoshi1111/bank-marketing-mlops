@@ -10,8 +10,15 @@ import json
 import joblib
 import mlflow
 import pandas as pd
-from sklearn.metrics import (average_precision_score, f1_score, precision_recall_curve, precision_score,
-                             recall_score, roc_auc_score, roc_curve)
+from sklearn.metrics import (
+    average_precision_score,
+    f1_score,
+    precision_recall_curve,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+    roc_curve,
+)
 
 from src.features import split_xy
 from src.params import ROOT, load_params
